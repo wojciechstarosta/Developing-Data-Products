@@ -1,0 +1,39 @@
+---
+title: "Developing Data Products Assignment 1"
+author: "Wojciech Starosta"
+date: "4 października 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r map, echo=FALSE}
+library(leaflet)
+
+beerIcon <- makeIcon(
+  iconUrl = "http://z-innej-beczki.ontap.pl/download/multitap/a2d1e125b027c5a68c145ed17100b363.jpg",
+  iconWidth = 31*215/230, iconHeight = 31,
+  iconAnchorX = 31*215/230/2, iconAnchorY = 16
+)
+
+manuSites <- "<a href='https://www.manufaktura.com/'>Manufaktura</a>"
+
+
+df %>%
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(lat=51.767594, lng=19.464995, 
+             popup="Here's my workplace") %>%
+    addMarkers(lat=51.7676768, lng=19.4580502, 
+             popup="Best beer in Lodz:)", icon=beerIcon) %>%
+addRectangles(lat1 = 51.7755103, lng1 = 19.4544938, 
+                lat2 = 51.7594236, lng2 = 19.4610512) %>%
+addLegend(labels = c("Piotrkowska Street", "Shopping centre"), colors = c("blue", "red")) %>%
+  addCircleMarkers(lat = 51.7796916, lng = 19.4433259, radius = 30, color = "red", popup = manuSites)
+```
+
+
